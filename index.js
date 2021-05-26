@@ -118,3 +118,34 @@ const promptUser = () => {
         },
     ]);
 };
+
+const generateREADME = (answers) => {
+    `# ${answers.title}
+    ###${answers.deployed}
+    ###${answers.repo}
+    
+    ## Description
+    ${answers.description}
+    
+    ## Installation
+    
+    ## Usage
+    
+    ## Credits
+    
+    ## License
+    
+    ## Badges
+    
+    ## Features`
+
+}
+
+const init = () => {
+    promptUser()
+      .then((answers) => writeFileAsync('README.md', generateREADME(answers)))
+      .then(() => console.log('Successfully wrote to README.md'))
+      .catch((err) => console.error(err));
+  };
+  
+  init();
