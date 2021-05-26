@@ -8,8 +8,52 @@ const promptUser = () => {
     return inquirer.prompt([
         {
             type: "input",
+            name: "name",
+            message: "What is your name?",
+            validate: function (response) {
+                if (response.length < 1) {
+                    return console.log("Please enter a valid response");
+                }
+                return true;
+            },
+        },
+        {
+            type: "input",
+            name: "username",
+            message: "What is your Github username?",
+            validate: function (response) {
+                if (response.length < 1) {
+                    return console.log("Please enter a valid response");
+                }
+                return true;
+            },
+        },
+        {
+            type: "input",
             name: "title",
             message: "What is the project title?",
+            validate: function (response) {
+                if (response.length < 1) {
+                    return console.log("Please enter a valid response");
+                }
+                return true;
+            },
+        },
+        {
+            type: "input",
+            name: "repo",
+            message: "What is the link to the repository for this project?",
+            validate: function (response) {
+                if (response.length < 1) {
+                    return console.log("Please enter a valid response");
+                }
+                return true;
+            },
+        },
+        {
+            type: "input",
+            name: "deployed",
+            message: "What is the deployed link to this project?",
             validate: function (response) {
                 if (response.length < 1) {
                     return console.log("Please enter a valid response");
@@ -51,53 +95,15 @@ const promptUser = () => {
             },
         },
         {
-            type: "input",
-            name: "licence",
-            message: "Please provide the project licence or your badge link",
-            validate: function (response) {
-                if (response.length < 1) {
-                    return console.log("Please enter a valid response");
-                }
-                return true;
-            },
-        },
+            type: "list",
+            name: "license",
+            message: "Choose the appropriate license for this project: ",
+            choices: ["Apache", "Academic", "GNU", "ISC", "MIT", "Mozilla", "Open"],
+          },
         {
             type: "input",
             name: "collaborators",
             message: "List your collaborators, if any, with links to their GitHub profiles.",
-            validate: function (response) {
-                if (response.length < 1) {
-                    return console.log("Please enter a valid response");
-                }
-                return true;
-            },
-        },
-        {
-            type: "input",
-            name: "username",
-            message: "What is your Github username?",
-            validate: function (response) {
-                if (response.length < 1) {
-                    return console.log("Please enter a valid response");
-                }
-                return true;
-            },
-        },
-        {
-            type: "input",
-            name: "repo",
-            message: "What is the repository link to this project?",
-            validate: function (response) {
-                if (response.length < 1) {
-                    return console.log("Please enter a valid response");
-                }
-                return true;
-            },
-        },
-        {
-            type: "input",
-            name: "deployed",
-            message: "What is the deployed link to this project?",
             validate: function (response) {
                 if (response.length < 1) {
                     return console.log("Please enter a valid response");
@@ -128,15 +134,16 @@ const generateREADME = (answers) => {
     ${answers.description}
     
     ## Installation
+    ${answers.installation}
     
     ## Usage
+    ${answers.usage}
     
     ## Credits
     
     ## License
-    
-    ## Badges
-    
+    ${answers.license}
+        
     ## Features`
 
 }
