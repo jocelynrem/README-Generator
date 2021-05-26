@@ -9,7 +9,18 @@ const promptUser = () => {
         {
             type: "input",
             name: "name",
-            message: "What is your name?",
+            message: "What is your full name?",
+            validate: function (response) {
+                if (response.length < 1) {
+                    return console.log("Please enter a valid response");
+                }
+                return true;
+            },
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "What is your email?",
             validate: function (response) {
                 if (response.length < 1) {
                     return console.log("Please enter a valid response");
@@ -103,7 +114,7 @@ const promptUser = () => {
         {
             type: "input",
             name: "collaborators",
-            message: "List your collaborators, if any, with links to their GitHub profiles.",
+            message: "List your collaborators, if any.",
             validate: function (response) {
                 if (response.length < 1) {
                     return console.log("Please enter a valid response");
@@ -113,8 +124,8 @@ const promptUser = () => {
         },
         {
             type: "input",
-            name: "screenshot",
-            message: "Provide the relative path to an image of the project.",
+            name: "tests",
+            message: "Provide examples on how to run tests for your application.",
             validate: function (response) {
                 if (response.length < 1) {
                     return console.log("Please enter a valid response");
@@ -129,9 +140,20 @@ const generateREADME = (answers) => {
     `# ${answers.title}
     ###${answers.deployed}
     ###${answers.repo}
+    ![${license}](https://img.shields.io/badge/license-${license}-brightgreen)
     
     ## Description
     ${answers.description}
+
+    ## Table of Contents
+    
+    * [Installation](##Installation)
+    * [Usage](##Usage)
+    * [License](##License)
+    * [Contributors](##Contributors)
+    * [Tests](##Test)
+    * [Questions](##Questions)
+
     
     ## Installation
     ${answers.installation}
@@ -139,12 +161,18 @@ const generateREADME = (answers) => {
     ## Usage
     ${answers.usage}
     
-    ## Credits
-    
     ## License
-    ${answers.license}
+     ${answers.license} Copyright (c) 2021 ${answers.name}
+   
+    ## Contributors
+    ${answers.contributors}
         
-    ## Features`
+    ## Tests
+    ${answers.tests}
+    
+    ## Questions
+    If you have questions about this application please email: ${answers.email}
+    Or visit my Github profile: https://github.com/${answers.username}`
 
 }
 
