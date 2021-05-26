@@ -1,11 +1,48 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const util = require('util');
+// const util = require('util');
+// const writeFileAsync = util.promisify(fs.writeFile);
 
-const writeFileAsync = util.promisify(fs.writeFile);
+const generateREADME = (answers) =>
+`# ${answers.title}
+### ${answers.deployed}
+### ${answers.repo}
+![${answers.license}](https://img.shields.io/badge/license-${answers.license}-brightgreen)
 
-const promptUser = () => {
-    return inquirer.prompt([
+## Description
+${answers.description}
+
+## Table of Contents
+
+* [Installation](##Installation)
+* [Usage](##Usage)
+* [License](##License)
+* [collaborators](##collaborators)
+* [Tests](##Test)
+* [Questions](##Questions)
+
+
+## Installation
+${answers.installation}
+
+## Usage
+${answers.usage}
+
+## License
+    ${answers.license} Copyright (c) 2021 ${answers.name}
+
+## collaborators
+${answers.collaborators}
+    
+## Tests
+${answers.tests}
+
+## Questions
+If you have questions about this application please email: ${answers.email}
+Or visit my Github profile: https://github.com/${answers.username}`;
+
+inquirer
+    .prompt([
         {
             type: "input",
             name: "name",
@@ -97,7 +134,7 @@ const promptUser = () => {
         {
             type: "input",
             name: "usage",
-            message: "Provide instructions and examples for use.",
+            message: "Provide instructions and examples for use",
             validate: function (response) {
                 if (response.length < 1) {
                     return console.log("Please enter a valid response");
@@ -110,7 +147,7 @@ const promptUser = () => {
             name: "license",
             message: "Choose the appropriate license for this project: ",
             choices: ["Apache", "Academic", "GNU", "ISC", "MIT", "Mozilla", "Open"],
-          },
+        },
         {
             type: "input",
             name: "collaborators",
@@ -133,54 +170,22 @@ const promptUser = () => {
                 return true;
             },
         },
-    ]);
-};
+    ])
+    .then((answers) => {
+        const READMEPageContent = generateREADME(answers);
+    
+        fs.writeFile('README.md', READMEPageContent, (err) =>
+          err ? console.log(err) : console.log('Successfully created README.md!')
+        );
+      });
 
-const generateREADME = (answers) => {
-    `# ${answers.title}
-    ###${answers.deployed}
-    ###${answers.repo}
-    ![${license}](https://img.shields.io/badge/license-${license}-brightgreen)
-    
-    ## Description
-    ${answers.description}
 
-    ## Table of Contents
-    
-    * [Installation](##Installation)
-    * [Usage](##Usage)
-    * [License](##License)
-    * [Contributors](##Contributors)
-    * [Tests](##Test)
-    * [Questions](##Questions)
 
-    
-    ## Installation
-    ${answers.installation}
-    
-    ## Usage
-    ${answers.usage}
-    
-    ## License
-     ${answers.license} Copyright (c) 2021 ${answers.name}
-   
-    ## Contributors
-    ${answers.contributors}
-        
-    ## Tests
-    ${answers.tests}
-    
-    ## Questions
-    If you have questions about this application please email: ${answers.email}
-    Or visit my Github profile: https://github.com/${answers.username}`
+// const init = () => {
+//     promptUser()
+//       .then((answers) => writeFileAsync('README.md', generateREADME(answers)))
+//       .then(() => console.log('Successfully wrote to README.md'))
+//       .catch((err) => console.error(err));
+//   };
 
-}
-
-const init = () => {
-    promptUser()
-      .then((answers) => writeFileAsync('README.md', generateREADME(answers)))
-      .then(() => console.log('Successfully wrote to README.md'))
-      .catch((err) => console.error(err));
-  };
-  
-  init();
+//   init();
