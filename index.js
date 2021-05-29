@@ -15,7 +15,7 @@ ${answers.description}
 * [Installation](##Installation)
 * [Usage](##Usage)
 * [License](##License)
-* [collaborators](##collaborators)
+* [Contribute](##Contribute)
 * [Tests](##Test)
 * [Questions](##Questions)
 

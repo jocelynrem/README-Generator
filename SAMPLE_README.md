@@ -11,7 +11,7 @@ This is a short description
 * [Installation](##Installation)
 * [Usage](##Usage)
 * [License](##License)
-* [collaborators](##collaborators)
+* [Contribute](##contribute)
 * [Tests](##Test)
 * [Questions](##Questions)
 
