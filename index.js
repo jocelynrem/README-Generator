@@ -1,13 +1,11 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-// const util = require('util');
-// const writeFileAsync = util.promisify(fs.writeFile);
 
 const generateREADME = (answers) =>
 `# ${answers.title}
-### ${answers.deployed}
-### ${answers.repo}
 ![${answers.license}](https://img.shields.io/badge/license-${answers.license}-brightgreen)
+#### ${answers.deployed}
+#### ${answers.repo}
 
 ## Description
 ${answers.description}
@@ -31,8 +29,8 @@ ${answers.usage}
 ## License
     ${answers.license} Copyright (c) 2021 ${answers.name}
 
-## collaborators
-${answers.collaborators}
+## Contribute
+${answers.contributors}
     
 ## Tests
 ${answers.tests}
@@ -150,8 +148,8 @@ inquirer
         },
         {
             type: "input",
-            name: "collaborators",
-            message: "List your collaborators, if any.",
+            name: "contributors",
+            message: "How can others contribute to your project?",
             validate: function (response) {
                 if (response.length < 1) {
                     return console.log("Please enter a valid response");
@@ -181,7 +179,6 @@ inquirer
 
 
 
-// const init = () => {
 //     promptUser()
 //       .then((answers) => writeFileAsync('README.md', generateREADME(answers)))
 //       .then(() => console.log('Successfully wrote to README.md'))
